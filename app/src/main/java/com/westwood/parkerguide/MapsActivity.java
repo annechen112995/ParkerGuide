@@ -75,7 +75,7 @@ public class MapsActivity extends AppCompatActivity implements
         if (map != null) {
             // Map is ready
             Toast.makeText(this, "Map Fragment was loaded properly!", Toast.LENGTH_SHORT).show();
-            //MapDemoActivityPermissionsDispatcher.getMyLocationWithCheck(this);
+            MapsActivityPermissionsDispatcher.getMyLocationWithCheck(this);
 
             // Attach long click listener to the map here
             map.setOnMapLongClickListener(this);
@@ -88,7 +88,7 @@ public class MapsActivity extends AppCompatActivity implements
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        //MapDemoActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
+        MapsActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
     }
 
     @SuppressWarnings("all")
@@ -172,7 +172,7 @@ public class MapsActivity extends AppCompatActivity implements
                 // Create a new DialogFragment for the error dialog
                 ErrorDialogFragment errorFragment = new ErrorDialogFragment();
                 errorFragment.setDialog(errorDialog);
-                //errorFragment.show(getSupportFragmentManager(), "Location Updates");
+                errorFragment.show(getSupportFragmentManager(), "Location Updates");
             }
 
             return false;
