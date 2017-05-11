@@ -224,8 +224,8 @@ public class MapsActivity extends AppCompatActivity implements
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,
-                mLocationRequest, (com.google.android.gms.location.LocationListener) this);
+        //LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,
+        //        mLocationRequest, (com.google.android.gms.location.LocationListener) this);
     }
 
     public void onLocationChanged(Location location) {
