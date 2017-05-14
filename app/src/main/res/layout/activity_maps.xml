@@ -9,6 +9,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         class="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_above="@+id/latlongLocation" />
+        android:layout_above="@+id/latlongLocation"
+        android:layout_alignParentTop="true" />
+
+    <EditText
+        android:id="@+id/latlongLocation"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="bottom"
+        android:layout_alignParentBottom="true"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp" />
 
 </RelativeLayout>
