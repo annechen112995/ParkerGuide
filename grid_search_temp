@@ -1,0 +1,171 @@
+// API key is in https://console.developers.google.com
+
+function sleep(milliseconds) {
+  var start = new Date().getTime();
+  for (var i = 0; i < 1e7; i++) {
+    if ((new Date().getTime() - start) > milliseconds){
+      break;
+    }
+  }
+}
+
+function initMap() {
+
+  var increment = 0.0001; // grid increment size
+  var road_dist_max = increment * 200000; // max distance from road (in meters) for which to ignore new points
+  var max_proximity = 0.9; // max proximity (with respect to increment size) for which to ignore duplicate points
+  
+  var counter_lat = 0;
+  var counter_lng = 0;
+  var markers = [];
+  var locations = {};
+  var len = 10;
+  var center = new google.maps.LatLng(34.1386, -118.1564);
+    
+
+  var myOptions = {
+      zoom: 18,
+      center: center
+    },
+    map = new google.maps.Map(document.getElementById('map-canvas'), myOptions),
+    marker = new google.maps.Marker({
+      map: map,
+    })
+    
+  for (var i = 0; i < (len * len); i++) {
+     marker_ind = new google.maps.Marker({
+        map: map,
+        title: "nearest road to clicked point"
+    });
+    markers.push(marker_ind);
+  }
+     
+    
+  infowindow = new google.maps.InfoWindow,
+    geocoder = new google.maps.Geocoder(),
+    dist2road = 0,
+    directionsService = new google.maps.DirectionsService();
+
+  setInterval(function() {
+    // our exit condition.
+    if (counter_lng > len) {
+      alert("whoa");
+      return;
+    }
+    
+    // use this to increment counters, one by one, doing a grid search.
+    if (counter_lat >= len) {
+      counter_lng += 1;
+      counter_lat = 0;
+    }
+    
+    // keeps track of which index counter we are looking at
+    cur_counter = (counter_lng * len) + counter_lat;
+    
+    // Create new latlng based on increasing grid scope.
+    var newLat = center.lat() + (increment * counter_lat);
+    var newLng = center.lng() + (increment * counter_lng);
+    
+    // iterative step.
+    counter_lat += 1;
+   
+    // the new lat/lng after adding increasing scope
+    new_latlng = new google.maps.LatLng(newLat, newLng);
+    
+    // center map at new calculated point
+    map.setCenter(new_latlng);
+    // set marker at this
+    marker.setPosition(new_latlng);
+    // zoom
+    map.setZoom(18);
+    // show latitude, longitude in info window
+
+    // DIRECTIONS service
+    var request = {
+      origin: new_latlng,
+      destination: new_latlng,
+      travelMode: google.maps.DirectionsTravelMode.DRIVING,
+      unitSystem: google.maps.UnitSystem.METRIC
+    };
+    
+    //figure out the street coordinate.
+    directionsService.route(request, function(response, status) {
+      if (status == google.maps.DirectionsStatus.OK) {
+        var new_location = response.routes[0].legs[0].start_location;
+        console.log(response.routes[0]);
+        
+        // calculate distance to nearest road.
+        dist2road = Math.round(google.maps.geometry.spherical.computeDistanceBetween(response.routes[0].legs[0].start_location,new_latlng),2);
+        
+        // if distance is too large, continue the while loop.
+        if (dist2road > road_dist_max) {
+          alert("road too far!");
+          return;
+        }
+        
+        // iterate through locations array, only add if it is distinctly far enough from other 
+        // existing points.
+
+        for (var key in locations) {
+          // parse lat and lng from key
+          var temp_lat = key.split('|')[0];
+          var temp_lng = key.split('|')[1];
+          
+          var lat_dif = Math.abs(parseFloat(temp_lat) - new_location.lat());
+          var lng_dif = Math.abs(parseFloat(temp_lng) - new_location.lng());
+          var overall_dif = Math.sqrt(Math.pow(lat_dif,2) + Math.pow(lng_dif,2));
+            
+          if (overall_dif < (increment * max_proximity)) {
+            alert("too close to existing marker!");
+            return;
+          } 
+        }
+         
+        var markertest = markers[cur_counter];
+        markertest.setPosition(new_location);
+        // generate key for the map
+        var new_location_key = new_location.lat() + "|" + new_location.lng();
+        locations[new_location_key] = "test";
+      }
+    });
+
+
+    infowindow.setContent("Latitude: " + new_latlng.lat() + " " + ", Longitude: " + new_latlng.lng());
+    infowindow.open(map, marker);
+    
+    
+    // GEOCODING: get reverse geocoding information and show itin info window
+    geocoder.geocode({
+      'location': new_latlng
+    }, function(results, status) {
+      if (status === 'OK') {
+        if (results[0]) {
+          infowindow.setContent("Latitude: " + new_latlng.lat() + "<vr>" + ", Longitude: " + new_latlng.lng() + "<br>Formatted address: " + results[0].formatted_address+"<br>Distance to nearest road: "+dist2road+" meters");
+          infowindow.open(map, marker);
+        } else {
+          window.alert('No results found');
+        }
+      } else {
+        window.alert('Geocoder failed due to: ' + status);
+      }
+    });
+
+  }, 1500); // end add Listener
+
+}
+
+
+
+// API key input
+if (typeof(google) == "undefined") {
+  // if you already have an API key you should find it here: https://console.developers.google.com/apis/credentials
+  // how to get an API key: https://developers.google.com/maps/documentation/javascript/get-api-key
+  // you need to allow http://fiddle.jshell.net/_display/* as referrer
+  //var mapsAPI = prompt("Please enter your API key (if you already have an API key you should find it here: https://console.developers.google.com/apis/credentials)", "");
+  var mapsAPI ="AIzaSyAIPPUQ0PSWMjTsgvIWRRcJv3LGfRzGmnA";
+  $.getScript('https://maps.google.com/maps/api/js?key=' + mapsAPI+'&libraries=geometry').done(function() {
+    initMap()
+  });
+} else {
+  console.log("google api already loaded");
+}
