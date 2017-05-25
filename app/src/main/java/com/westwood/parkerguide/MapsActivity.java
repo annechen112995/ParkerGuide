@@ -41,6 +41,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -64,7 +65,7 @@ public class MapsActivity extends AppCompatActivity implements
     private long UPDATE_INTERVAL = 60000;  /* 60 secs */
     private long FASTEST_INTERVAL = 5000; /* 5 secs */
     private int BOUND_PADDING = 100;
-    List<LatLng> list;
+    private ArrayList<LatLng> list;
 
     /*
      * Define a request code to send to Google Play services This code is
@@ -82,127 +83,7 @@ public class MapsActivity extends AppCompatActivity implements
             mapFragment.getMapAsync(new OnMapReadyCallback() {
                 @Override
                 public void onMapReady(GoogleMap map) {
-                    list = new List<LatLng>() {
-                        @Override
-                        public int size() {
-                            return 0;
-                        }
-
-                        @Override
-                        public boolean isEmpty() {
-                            return false;
-                        }
-
-                        @Override
-                        public boolean contains(Object o) {
-                            return false;
-                        }
-
-                        @NonNull
-                        @Override
-                        public Iterator<LatLng> iterator() {
-                            return null;
-                        }
-
-                        @NonNull
-                        @Override
-                        public Object[] toArray() {
-                            return new Object[0];
-                        }
-
-                        @NonNull
-                        @Override
-                        public <T> T[] toArray(@NonNull T[] a) {
-                            return null;
-                        }
-
-                        @Override
-                        public boolean add(LatLng latLng) {
-                            return false;
-                        }
-
-                        @Override
-                        public boolean remove(Object o) {
-                            return false;
-                        }
-
-                        @Override
-                        public boolean containsAll(@NonNull Collection<?> c) {
-                            return false;
-                        }
-
-                        @Override
-                        public boolean addAll(@NonNull Collection<? extends LatLng> c) {
-                            return false;
-                        }
-
-                        @Override
-                        public boolean addAll(int index, @NonNull Collection<? extends LatLng> c) {
-                            return false;
-                        }
-
-                        @Override
-                        public boolean removeAll(@NonNull Collection<?> c) {
-                            return false;
-                        }
-
-                        @Override
-                        public boolean retainAll(@NonNull Collection<?> c) {
-                            return false;
-                        }
-
-                        @Override
-                        public void clear() {
-
-                        }
-
-                        @Override
-                        public LatLng get(int index) {
-                            return null;
-                        }
-
-                        @Override
-                        public LatLng set(int index, LatLng element) {
-                            return null;
-                        }
-
-                        @Override
-                        public void add(int index, LatLng element) {
-
-                        }
-
-                        @Override
-                        public LatLng remove(int index) {
-                            return null;
-                        }
-
-                        @Override
-                        public int indexOf(Object o) {
-                            return 0;
-                        }
-
-                        @Override
-                        public int lastIndexOf(Object o) {
-                            return 0;
-                        }
-
-                        @Override
-                        public ListIterator<LatLng> listIterator() {
-                            return null;
-                        }
-
-                        @NonNull
-                        @Override
-                        public ListIterator<LatLng> listIterator(int index) {
-                            return null;
-                        }
-
-                        @NonNull
-                        @Override
-                        public List<LatLng> subList(int fromIndex, int toIndex) {
-                            return null;
-                        }
-                    };
+                    list = new ArrayList<LatLng>();
                     loadMap(map);
                     //map.setInfoWindowAdapter(new CustomWindowAdapter(getLayoutInflater()));
                 }
@@ -504,6 +385,7 @@ public class MapsActivity extends AppCompatActivity implements
                                 .icon(defaultMarker));
                         list.add(point);
                         drawPolyLineOnMap(list);
+                        Toast.makeText(getApplicationContext(), point.toString(), Toast.LENGTH_LONG).show();
                         // Animate marker using drop effect
                         // --> Call the dropPinEffect method here
                         dropPinEffect(marker);
@@ -552,12 +434,12 @@ public class MapsActivity extends AppCompatActivity implements
         });
     }
 
-    public void drawPolyLineOnMap(List<LatLng> list) {
+    public void drawPolyLineOnMap(ArrayList<LatLng> list) {
         PolylineOptions polyOptions = new PolylineOptions();
         polyOptions.color(Color.RED);
         polyOptions.width(5);
         polyOptions.addAll(list);
-        map.clear();
+        //map.clear();
         map.addPolyline(polyOptions);
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
         for (LatLng latLng : list) {
@@ -565,7 +447,7 @@ public class MapsActivity extends AppCompatActivity implements
         }
         final LatLngBounds bounds = builder.build();
         //BOUND_PADDING is an int to specify padding of bound.. try 100.
-        CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, BOUND_PADDING);
-        map.animateCamera(cu);
+        //CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, BOUND_PADDING);
+        //map.animateCamera(cu);
     }
 }
