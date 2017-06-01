@@ -79,7 +79,7 @@ public class MapsActivity extends AppCompatActivity implements
                 @Override
                 public void onMapReady(GoogleMap map) {
                     list = new ArrayList<LatLng>();
-                    Toast.makeText(getApplicationContext(), "list created", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(), "list created", Toast.LENGTH_SHORT).show();
                     //generateList();
                     //Toast.makeText(getApplicationContext(), "points being added", Toast.LENGTH_SHORT).show();
                     loadMap(map);
@@ -147,7 +147,7 @@ public class MapsActivity extends AppCompatActivity implements
                 //double longitude = Double.parseDouble(values[i + 1]);
                 //LatLng location = new LatLng(latitude, longitude);
                 list.add(new LatLng(Double.parseDouble(values[i]), Double.parseDouble(values[i + 1])));
-                Toast.makeText(this, (new LatLng(Double.parseDouble(values[i]), Double.parseDouble(values[i + 1]))).toString(), Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, (new LatLng(Double.parseDouble(values[i]), Double.parseDouble(values[i + 1]))).toString(), Toast.LENGTH_LONG).show();
                 BitmapDescriptor defaultMarker =
                         BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN);
                 Marker marker = map.addMarker(new MarkerOptions()
@@ -168,8 +168,8 @@ public class MapsActivity extends AppCompatActivity implements
             Toast.makeText(this, "Map Fragment was loaded properly!", Toast.LENGTH_SHORT).show();
             MapsActivityPermissionsDispatcher.getMyLocationWithCheck(this);
             generateList();
-            Toast.makeText(this, "Drawing Polylines", Toast.LENGTH_SHORT).show();
-            drawPolyLineOnMap(list);
+            //Toast.makeText(this, "Drawing Polylines", Toast.LENGTH_SHORT).show();
+            //drawPolyLineOnMap(list);
             // Attach long click listener to the map here
             map.setOnMapLongClickListener(this);
 
