@@ -141,7 +141,7 @@ public class MapsActivity extends AppCompatActivity implements
                 "34.1416", "-118.1144524",
                 "34.1421005", "-118.11445500000002"
         };
-        for (int i = 0; i < values.length; i++) {
+        for (int i = 0; i < (values.length/2); i++) {
             if ((i%2) == 0) {
                 //double latitude = Double.parseDouble(values[i]);
                 //double longitude = Double.parseDouble(values[i + 1]);
@@ -150,8 +150,37 @@ public class MapsActivity extends AppCompatActivity implements
                 //Toast.makeText(this, (new LatLng(Double.parseDouble(values[i]), Double.parseDouble(values[i + 1]))).toString(), Toast.LENGTH_LONG).show();
                 BitmapDescriptor defaultMarker =
                         BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN);
+                // Extract content from alert dialog
+                String title = "Parking Available:";
+                String snippet = "8AM - 10 PM, M - F";
                 Marker marker = map.addMarker(new MarkerOptions()
                         .position(new LatLng(Double.parseDouble(values[i]), Double.parseDouble(values[i + 1])))
+                        .title(title)
+                        .snippet(snippet)
+                        .icon(defaultMarker));
+                dropPinEffect(marker);
+            }
+            else {
+                continue;
+            }
+        }
+
+        for (int i = (values.length/2); i < values.length; i++) {
+            if ((i%2) == 0) {
+                //double latitude = Double.parseDouble(values[i]);
+                //double longitude = Double.parseDouble(values[i + 1]);
+                //LatLng location = new LatLng(latitude, longitude);
+                list.add(new LatLng(Double.parseDouble(values[i]), Double.parseDouble(values[i + 1])));
+                //Toast.makeText(this, (new LatLng(Double.parseDouble(values[i]), Double.parseDouble(values[i + 1]))).toString(), Toast.LENGTH_LONG).show();
+                BitmapDescriptor defaultMarker =
+                        BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN);
+                // Extract content from alert dialog
+                String title = "Parking Available:";
+                String snippet = "10AM - 5 PM, M - W";
+                Marker marker = map.addMarker(new MarkerOptions()
+                        .position(new LatLng(Double.parseDouble(values[i]), Double.parseDouble(values[i + 1])))
+                        .title(title)
+                        .snippet(snippet)
                         .icon(defaultMarker));
                 dropPinEffect(marker);
             }
