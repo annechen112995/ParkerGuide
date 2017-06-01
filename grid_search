@@ -1,3 +1,29 @@
+/* Use this for HTML: 
+<div id="map-canvas"></div>
+<div id="console-log"></div>
+*/
+
+/* use this for CSS:
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      
+      #map-canvas {
+        height: 90%;
+        width: 100%;
+      }
+      
+      #console-log {
+        height: 10%;
+        width: 100%;
+      }
+      
+
+*/
+
 // API key is in https://console.developers.google.com
 var consoleLine = "<p class=\"console-line\"></p>";
  

@@ -1,0 +1,203 @@
+Latitude: 34.138602 , Longitude: -118.11881820000002
+
+Latitude: 34.1391019 , Longitude: -118.11882630000002
+
+Latitude: 34.1396018 , Longitude: -118.11883439999997
+
+too close to existing marker!
+
+Latitude: 34.1407749 , Longitude: -118.11897929999998
+
+too close to existing marker!
+
+Latitude: 34.1419179 , Longitude: -118.11900179999998
+
+too close to existing marker!
+
+too close to existing marker!
+
+Latitude: 34.1434407 , Longitude: -118.11932189999999
+
+too close to existing marker!
+
+too close to existing marker!
+
+too close to existing marker!
+
+too close to existing marker!
+
+Latitude: 34.1407651 , Longitude: -118.11850090000002
+
+too close to existing marker!
+
+Latitude: 34.1419199 , Longitude: -118.11850179999999
+
+too close to existing marker!
+
+too close to existing marker!
+
+too close to existing marker!
+
+too close to existing marker!
+
+too close to existing marker!
+
+Latitude: 34.139784 , Longitude: -118.11799810000002
+
+too close to existing marker!
+
+Latitude: 34.1407669 , Longitude: -118.11800089999997
+
+too close to existing marker!
+
+Latitude: 34.1419189 , Longitude: -118.11799289999999
+
+too close to existing marker!
+
+too close to existing marker!
+
+Latitude: 34.1434681 , Longitude: -118.11725669999998
+
+Latitude: 34.1386024 , Longitude: -118.11715670000001
+
+Latitude: 34.1391018 , Longitude: -118.11715979999997
+
+Latitude: 34.1397804 , Longitude: -118.11749810000003
+
+Latitude: 34.1401069 , Longitude: -118.11717529999999
+
+Latitude: 34.1407688 , Longitude: -118.11750089999998
+
+too close to existing marker!
+
+Latitude: 34.1416019 , Longitude: -118.11720379999997
+
+too close to existing marker!
+
+Latitude: 34.1428425 , Longitude: -118.1169266
+
+too close to existing marker!
+
+too close to existing marker!
+
+too close to existing marker!
+
+too close to existing marker!
+
+too close to existing marker!
+
+Latitude: 34.14077109999999 , Longitude: -118.11700159999998
+
+too close to existing marker!
+
+too close to existing marker!
+
+too close to existing marker!
+
+too close to existing marker!
+
+too close to existing marker!
+
+Latitude: 34.1388437 , Longitude: -118.11650179999998
+
+too close to existing marker!
+
+Latitude: 34.1397893 , Longitude: -118.11650470000001
+
+too close to existing marker!
+
+Latitude: 34.1407743 , Longitude: -118.11650159999999
+
+too close to existing marker!
+
+Latitude: 34.1419043 , Longitude: -118.1164996
+
+too close to existing marker!
+
+too close to existing marker!
+
+too close to existing marker!
+
+too close to existing marker!
+
+Latitude: 34.1390971 , Longitude: -118.1156406
+
+Latitude: 34.1397979 , Longitude: -118.11600499999997
+
+too close to existing marker!
+
+Latitude: 34.1407775 , Longitude: -118.1160016
+
+Latitude: 34.1411009 , Longitude: -118.11559390000002
+
+Latitude: 34.1419039 , Longitude: -118.11599960000001
+
+too close to existing marker!
+
+Latitude: 34.142793 , Longitude: -118.1160099
+
+too close to existing marker!
+
+too close to existing marker!
+
+too close to existing marker!
+
+too close to existing marker!
+
+Latitude: 34.1401004 , Longitude: -118.11559699999998
+
+too close to existing marker!
+
+too close to existing marker!
+
+Latitude: 34.1415998 , Longitude: -118.11559549999998
+
+too close to existing marker!
+
+too close to existing marker!
+
+Latitude: 34.1430972 , Longitude: -118.1156259
+
+Latitude: 34.1386025 , Longitude: -118.11463090000001
+
+too close to existing marker!
+
+Latitude: 34.139796 , Longitude: -118.1149969
+
+too close to existing marker!
+
+Latitude: 34.1407848 , Longitude: -118.11500219999999
+
+too close to existing marker!
+
+Latitude: 34.141921 , Longitude: -118.11500519999998
+
+too close to existing marker!
+
+Latitude: 34.1426057 , Longitude: -118.11446280000001
+
+Latitude: 34.1431056 , Longitude: -118.11447049999998
+
+too close to existing marker!
+
+Latitude: 34.1391236 , Longitude: -118.11457089999999
+
+Latitude: 34.1396007 , Longitude: -118.1144253
+
+Latitude: 34.1401011 , Longitude: -118.1144357
+
+Latitude: 34.1406009 , Longitude: -118.1144481
+
+Latitude: 34.1411 , Longitude: -118.11445270000002
+
+Latitude: 34.1416 , Longitude: -118.1144524
+
+Latitude: 34.1421005 , Longitude: -118.11445500000002
+
+too close to existing marker!
+
+too close to existing marker!
+
+too close to existing marker!
+
+too close to existing marker!
