@@ -78,13 +78,17 @@ public class MapsActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
+        list = new ArrayList<LatLng>();
+
+        generateList();
+
         mapFragment = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.googleMap));
         if (mapFragment != null) {
             mapFragment.getMapAsync(new OnMapReadyCallback() {
                 @Override
                 public void onMapReady(GoogleMap map) {
-                    list = new ArrayList<LatLng>();
                     loadMap(map);
+                    drawPolyLineOnMap(list);
                     //map.setInfoWindowAdapter(new CustomWindowAdapter(getLayoutInflater()));
                 }
             });
@@ -92,6 +96,67 @@ public class MapsActivity extends AppCompatActivity implements
             Toast.makeText(this, "Error - Map Fragment was null!!", Toast.LENGTH_SHORT).show();
         }
 
+    }
+
+    private void generateList() {
+        String[] values = new String[] { "34.138602", "-118.11881820000002", "34.1391019",
+                "-118.11882630000002",
+                "34.1396018", "-118.11883439999997",
+                "34.1407749", "-118.11897929999998",
+                "34.1419179", "-118.11900179999998",
+                "34.1434407", "-118.11932189999999",
+                "34.1407651", "-118.11850090000002",
+                "34.1419199", "-118.11850179999999",
+                "34.139784", "-118.11799810000002",
+                "34.1407669", "-118.11800089999997",
+                "34.1419189", "-118.11799289999999",
+                "34.1434681", "-118.11725669999998",
+                "34.1386024", "-118.11715670000001",
+                "34.1391018", "-118.11715979999997",
+                "34.1397804", "-118.11749810000003",
+                "34.1401069", "-118.11717529999999",
+                "34.1407688", "-118.11750089999998",
+                "34.1416019", "-118.11720379999997",
+                "34.1428425", "-118.1169266",
+                "34.14077109999999", "-118.11700159999998",
+                "34.1388437", "-118.11650179999998",
+                "34.1397893", "-118.11650470000001",
+                "34.1407743", "-118.11650159999999",
+                "34.1419043", "-118.1164996",
+                "34.1390971", "-118.1156406",
+                "34.1397979", "-118.11600499999997",
+                "34.1407775", "-118.1160016",
+                "34.1411009", "-118.11559390000002",
+                "34.1419039", "-118.11599960000001",
+                "34.142793", "-118.1160099",
+                "34.1401004", "-118.11559699999998",
+                "34.1415998", "-118.11559549999998",
+                "34.1430972", "-118.1156259",
+                "34.1386025", "-118.11463090000001",
+                "34.139796", "-118.1149969",
+                "34.1407848", "-118.11500219999999",
+                "34.141921", "-118.11500519999998",
+                "34.1426057", "-118.11446280000001",
+                "34.1431056", "-118.11447049999998",
+                "34.1391236", "-118.11457089999999",
+                "34.1396007", "-118.1144253",
+                "34.1401011", "-118.1144357",
+                "34.1406009", "-118.1144481",
+                "34.1411", "-118.11445270000002",
+                "34.1416", "-118.1144524",
+                "34.1421005", "-118.11445500000002"
+        };
+        for (int i = 0; i < values.length; ++i) {
+            if (i%2 == 0) {
+                double latitude = Double.parseDouble(values[i]);
+                double longitude = Double.parseDouble(values[i + 1]);
+                LatLng location = new LatLng(latitude, longitude);
+                list.add(location);
+            }
+            else {
+                i++;
+            }
+        }
     }
 
     protected void loadMap(GoogleMap googleMap) {
@@ -383,8 +448,8 @@ public class MapsActivity extends AppCompatActivity implements
                                 .title(title)
                                 .snippet(snippet)
                                 .icon(defaultMarker));
-                        list.add(point);
-                        drawPolyLineOnMap(list);
+                        //list.add(point);
+                        //drawPolyLineOnMap(list);
                         Toast.makeText(getApplicationContext(), point.toString(), Toast.LENGTH_LONG).show();
                         // Animate marker using drop effect
                         // --> Call the dropPinEffect method here
@@ -436,7 +501,7 @@ public class MapsActivity extends AppCompatActivity implements
 
     public void drawPolyLineOnMap(ArrayList<LatLng> list) {
         PolylineOptions polyOptions = new PolylineOptions();
-        polyOptions.color(Color.RED);
+        polyOptions.color(Color.GREEN);
         polyOptions.width(5);
         polyOptions.addAll(list);
         //map.clear();
@@ -445,7 +510,7 @@ public class MapsActivity extends AppCompatActivity implements
         for (LatLng latLng : list) {
             builder.include(latLng);
         }
-        final LatLngBounds bounds = builder.build();
+        //final LatLngBounds bounds = builder.build();
         //BOUND_PADDING is an int to specify padding of bound.. try 100.
         //CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, BOUND_PADDING);
         //map.animateCamera(cu);
