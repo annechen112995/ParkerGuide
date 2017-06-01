@@ -11,7 +11,6 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
@@ -42,10 +41,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
 
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.RuntimePermissions;
@@ -83,10 +78,11 @@ public class MapsActivity extends AppCompatActivity implements
             mapFragment.getMapAsync(new OnMapReadyCallback() {
                 @Override
                 public void onMapReady(GoogleMap map) {
-                    loadMap(map);
                     list = new ArrayList<LatLng>();
-                    generateList(list);
-                    drawPolyLineOnMap(list);
+                    Toast.makeText(getApplicationContext(), "list created", Toast.LENGTH_SHORT).show();
+                    //generateList();
+                    //Toast.makeText(getApplicationContext(), "points being added", Toast.LENGTH_SHORT).show();
+                    loadMap(map);
                     //map.setInfoWindowAdapter(new CustomWindowAdapter(getLayoutInflater()));
                 }
             });
@@ -96,8 +92,8 @@ public class MapsActivity extends AppCompatActivity implements
 
     }
 
-    private void generateList(ArrayList<LatLng> list) {
-        String[] values = new String[] { 
+    private void generateList() {
+        String[] values = new String[] {
                 "34.138602", "-118.11881820000002",
                 "34.1391019", "-118.11882630000002",
                 "34.1396018", "-118.11883439999997",
@@ -147,13 +143,20 @@ public class MapsActivity extends AppCompatActivity implements
         };
         for (int i = 0; i < values.length; i++) {
             if ((i%2) == 0) {
-                double latitude = Double.parseDouble(values[i]);
-                double longitude = Double.parseDouble(values[i + 1]);
-                LatLng location = new LatLng(latitude, longitude);
-                list.add(location);
+                //double latitude = Double.parseDouble(values[i]);
+                //double longitude = Double.parseDouble(values[i + 1]);
+                //LatLng location = new LatLng(latitude, longitude);
+                list.add(new LatLng(Double.parseDouble(values[i]), Double.parseDouble(values[i + 1])));
+                Toast.makeText(this, (new LatLng(Double.parseDouble(values[i]), Double.parseDouble(values[i + 1]))).toString(), Toast.LENGTH_LONG).show();
+                BitmapDescriptor defaultMarker =
+                        BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN);
+                Marker marker = map.addMarker(new MarkerOptions()
+                        .position(new LatLng(Double.parseDouble(values[i]), Double.parseDouble(values[i + 1])))
+                        .icon(defaultMarker));
+                dropPinEffect(marker);
             }
             else {
-                i++;
+                continue;
             }
         }
     }
@@ -164,7 +167,9 @@ public class MapsActivity extends AppCompatActivity implements
             // Map is ready
             Toast.makeText(this, "Map Fragment was loaded properly!", Toast.LENGTH_SHORT).show();
             MapsActivityPermissionsDispatcher.getMyLocationWithCheck(this);
-
+            generateList();
+            Toast.makeText(this, "Drawing Polylines", Toast.LENGTH_SHORT).show();
+            drawPolyLineOnMap(list);
             // Attach long click listener to the map here
             map.setOnMapLongClickListener(this);
 
