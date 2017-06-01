@@ -1,4 +1,13 @@
 // API key is in https://console.developers.google.com
+var consoleLine = "<p class=\"console-line\"></p>";
+ 
+console = {
+    log: function (text) {
+        $("#console-log").append($(consoleLine).html(text));
+    }
+};
+
+console.log("Hello Console")
 
 function sleep(milliseconds) {
   var start = new Date().getTime();
@@ -11,16 +20,16 @@ function sleep(milliseconds) {
 
 function initMap() {
 
-  var increment = 0.0001; // grid increment size
+  var increment = 0.0005; // grid increment size
   var road_dist_max = increment * 200000; // max distance from road (in meters) for which to ignore new points
   var max_proximity = 0.9; // max proximity (with respect to increment size) for which to ignore duplicate points
   
   var counter_lat = 0;
   var counter_lng = 0;
   var markers = [];
-  var locations = {};
+  var locations = {}; // stores all unique coordinates
   var len = 10;
-  var center = new google.maps.LatLng(34.1386, -118.1564);
+  var center = new google.maps.LatLng(34.1386, -118.119);
     
 
   var myOptions = {
@@ -49,7 +58,7 @@ function initMap() {
   setInterval(function() {
     // our exit condition.
     if (counter_lng > len) {
-      alert("whoa");
+      // TODO: figure out whats going on with the return here, since it doesn't exit setInterval
       return;
     }
     
@@ -99,7 +108,8 @@ function initMap() {
         
         // if distance is too large, continue the while loop.
         if (dist2road > road_dist_max) {
-          alert("road too far!");
+          //alert("road too far!");
+          console.log("road too far!");
           return;
         }
         
@@ -116,7 +126,7 @@ function initMap() {
           var overall_dif = Math.sqrt(Math.pow(lat_dif,2) + Math.pow(lng_dif,2));
             
           if (overall_dif < (increment * max_proximity)) {
-            alert("too close to existing marker!");
+            console.log("too close to existing marker!");
             return;
           } 
         }
@@ -126,12 +136,15 @@ function initMap() {
         // generate key for the map
         var new_location_key = new_location.lat() + "|" + new_location.lng();
         locations[new_location_key] = "test";
+        
+        console.log("Latitude: " + new_location.lat() + " " + ", Longitude: " + new_location.lng())
       }
     });
 
 
     infowindow.setContent("Latitude: " + new_latlng.lat() + " " + ", Longitude: " + new_latlng.lng());
     infowindow.open(map, marker);
+    
     
     
     // GEOCODING: get reverse geocoding information and show itin info window
@@ -150,7 +163,7 @@ function initMap() {
       }
     });
 
-  }, 1500); // end add Listener
+  }, 2500); // end add Listener
 
 }
 
