@@ -85,7 +85,7 @@ public class MapsActivity extends AppCompatActivity implements
                 public void onMapReady(GoogleMap map) {
                     loadMap(map);
                     list = new ArrayList<LatLng>();
-                    generateList();
+                    generateList(list);
                     drawPolyLineOnMap(list);
                     //map.setInfoWindowAdapter(new CustomWindowAdapter(getLayoutInflater()));
                 }
@@ -96,9 +96,10 @@ public class MapsActivity extends AppCompatActivity implements
 
     }
 
-    private void generateList() {
-        String[] values = new String[] { "34.138602", "-118.11881820000002", "34.1391019",
-                "-118.11882630000002",
+    private void generateList(ArrayList<LatLng> list) {
+        String[] values = new String[] { 
+                "34.138602", "-118.11881820000002",
+                "34.1391019", "-118.11882630000002",
                 "34.1396018", "-118.11883439999997",
                 "34.1407749", "-118.11897929999998",
                 "34.1419179", "-118.11900179999998",
