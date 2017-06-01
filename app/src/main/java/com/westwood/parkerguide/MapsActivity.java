@@ -78,16 +78,14 @@ public class MapsActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
-        list = new ArrayList<LatLng>();
-
-        generateList();
-
         mapFragment = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.googleMap));
         if (mapFragment != null) {
             mapFragment.getMapAsync(new OnMapReadyCallback() {
                 @Override
                 public void onMapReady(GoogleMap map) {
                     loadMap(map);
+                    list = new ArrayList<LatLng>();
+                    generateList();
                     drawPolyLineOnMap(list);
                     //map.setInfoWindowAdapter(new CustomWindowAdapter(getLayoutInflater()));
                 }
@@ -146,8 +144,8 @@ public class MapsActivity extends AppCompatActivity implements
                 "34.1416", "-118.1144524",
                 "34.1421005", "-118.11445500000002"
         };
-        for (int i = 0; i < values.length; ++i) {
-            if (i%2 == 0) {
+        for (int i = 0; i < values.length; i++) {
+            if ((i%2) == 0) {
                 double latitude = Double.parseDouble(values[i]);
                 double longitude = Double.parseDouble(values[i + 1]);
                 LatLng location = new LatLng(latitude, longitude);
