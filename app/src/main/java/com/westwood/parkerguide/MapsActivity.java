@@ -546,7 +546,7 @@ public class MapsActivity extends AppCompatActivity implements
 
     protected void search(List<Address> addresses) {
 
-        Address address = (Address) addresses.get(0);
+        Address address = addresses.get(0);
         //double home_long = address.getLongitude();
         //double home_lat = address.getLatitude();
         LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
