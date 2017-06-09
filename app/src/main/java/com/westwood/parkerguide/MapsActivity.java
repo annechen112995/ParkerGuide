@@ -7,11 +7,12 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
@@ -20,7 +21,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.BounceInterpolator;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -40,12 +43,10 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.android.gms.vision.barcode.Barcode;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.RuntimePermissions;
@@ -95,6 +96,33 @@ public class MapsActivity extends AppCompatActivity implements
         } else {
             Toast.makeText(this, "Error - Map Fragment was null!!", Toast.LENGTH_SHORT).show();
         }
+
+        Button button1 = (Button) findViewById(R.id.button1);
+
+        button1.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                EditText searchView1 = (EditText) findViewById(R.id.searchView1);
+                String g = searchView1.getText().toString();
+
+                Geocoder geocoder = new Geocoder(getBaseContext());
+                List<Address> addresses = null;
+
+                try {
+                    // Getting a maximum of 3 Address that matches the input
+                    // text
+                    addresses = geocoder.getFromLocationName(g, 3);
+                    if (addresses != null && !addresses.equals(""))
+                        search(addresses);
+
+                } catch (Exception e) {
+
+                }
+
+            }
+        });
 
     }
 
@@ -514,5 +542,31 @@ public class MapsActivity extends AppCompatActivity implements
         //BOUND_PADDING is an int to specify padding of bound.. try 100.
         //CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, BOUND_PADDING);
         //map.animateCamera(cu);
+    }
+
+    protected void search(List<Address> addresses) {
+
+        Address address = (Address) addresses.get(0);
+        //double home_long = address.getLongitude();
+        //double home_lat = address.getLatitude();
+        LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+
+        String addressText = String.format(
+                "%s, %s",
+                address.getMaxAddressLineIndex() > 0 ? address
+                        .getAddressLine(0) : "", address.getCountryName());
+
+        MarkerOptions markerOptions = new MarkerOptions();
+
+        markerOptions.position(latLng);
+        markerOptions.title(addressText);
+
+        map.clear();
+        map.addMarker(markerOptions);
+        map.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+        map.animateCamera(CameraUpdateFactory.zoomTo(15));
+        TextView latlongLocation = (TextView) findViewById(R.id.latlongLocation);
+        latlongLocation.setText("Latitude:" + address.getLatitude() + ", Longitude:"
+                + address.getLongitude());
     }
 }
