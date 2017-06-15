@@ -44,7 +44,6 @@
         android:id="@+id/button1"
         android:layout_width="28dp"
         android:layout_height="25dp"
-        android:layout_alignBaseline="@+id/searchView1"
         android:layout_alignBottom="@+id/searchView1"
         android:layout_alignRight="@+id/searchView1"
         android:background="@drawable/g_search_btn" >

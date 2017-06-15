@@ -597,7 +597,7 @@ public class MapsActivity extends AppCompatActivity implements
         markerOptions.position(latLng);
         markerOptions.title(addressText);
 
-        map.clear();
+        //map.clear();
         map.addMarker(markerOptions);
         map.moveCamera(CameraUpdateFactory.newLatLng(latLng));
         map.animateCamera(CameraUpdateFactory.zoomTo(15));
